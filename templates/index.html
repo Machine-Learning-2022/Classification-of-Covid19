@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Classification of Covid-19</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+            *{
+                font-family: 'Poppins', sans-serif;
+            }
+
+            body{
+                height: 100vh;
+                width: 100%;
+                background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
+            }
+
+            .border-gradient-box {
+                border: double 4px transparent;
+                border-radius: 10px;
+                background-image: linear-gradient(white, white), radial-gradient(circle at top left, #56d8e4 10%,#9f01ea 90%);
+                background-origin: border-box;
+                background-clip: content-box, border-box;
+            }
+
+            .border-gradient-img {
+                border: double 2px transparent;
+                border-radius: 10px;
+                background-image: linear-gradient(white, white), radial-gradient(circle at top left, #56d8e4 10%,#9f01ea 90%);
+                background-origin: border-box;
+                background-clip: content-box, border-box;
+            }
+
+            .myresult {
+                background: linear-gradient(160deg, #9f01ea 2%, #56d8e4 98%);
+                color: white;
+                margin-top: -50px;
+                padding: 14px;
+                font-size: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <section
+            class="
+                flex
+                justify-center
+                items-center
+                w-screen
+                h-screen
+            "
+        >
+            <main
+                class="
+                    flex flex-col
+                    justify-center
+                    items-center
+                    p-16
+                    bg-white
+                    rounded-lg
+                "
+            >
+                <h1 class="text-3xl text-bold" style="color: #420161;">Classification of Covid-19</h1>
+
+                {% if uploaded_image %}
+                <div class="flex flex-col mb-5">
+                    <img
+                        src="{{ url_for('send_uploaded_image', filename=uploaded_image) }}"
+                        class="mt-8 mb-4 h-64 rounded-lg border-gradient-img"
+                    />
+                    <p class="text-center myresult rounded-b-lg">
+                        Prediction result: {% if prediction %}
+                            {{prediction}}
+                        {% endif %}
+                    </p>
+                </div>
+                {% else %}
+                <div
+                    class="
+                        flex
+                        justify-center
+                        items-center
+                        my-8
+                        w-60
+                        h-64
+                        rounded-lg
+                        border-gradient-box
+                    "
+                >
+                    <p class="text-center">
+                        Upload Chest X-ray
+                    </p>
+                </div>
+                {% endif %} 
+
+                <form
+                    method="post"
+                    enctype="multipart/form-data"
+                    class="flex flex-col"
+                >
+                    <label class="block mx-auto mb-5">
+                        <span class="sr-only">Choose a file</span>
+                        <input type="file" name="image" class="block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-violet-50 file:text-violet-700
+                        hover:file:bg-violet-100
+                        "/>
+                    </label>
+                    <button
+                        type="submit"
+                        class="p-4 bg-indigo-500 text-white rounded-lg"
+                        style="background: linear-gradient(160deg, #56d8e4 2%, #9f01ea 98%);"
+                    >
+                        Prediction now!
+                    </button>
+                </form>
+            </main>
+        </section>
+    </body>
+</html>
